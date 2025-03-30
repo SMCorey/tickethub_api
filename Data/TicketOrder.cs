@@ -23,7 +23,7 @@ namespace tickethub_api.Data
         [Required]
         [CreditCard]
         public string CreditCard { get; set; } 
-        // 4242 4242 4242 4242
+        // 4242424242424242
 
         [Required]
         [RegularExpression(@"^(0[1-9]|1[0-2])\/([0-9]{2})$", ErrorMessage = "Expiration date must be in MM/YY format")]

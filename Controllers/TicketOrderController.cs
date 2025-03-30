@@ -27,23 +27,12 @@ namespace tickethub_api.Controllers
             queueClient.CreateIfNotExistsAsync();
         }
 
-
-
-        // Examples:
-        // serialize an object to json
-        //string message = JsonSerializer.Serialize(someObject);
-
-        // send string message to queue
-        //await queueClient.SendMessageAsync(message);
-
-
-
         //GET: api/<TicketOrderController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        //[HttpGet]
+        //public IEnumerable<string> Get()
+        //{
+        //    return new string[] { "value1", "value2" };
+        //}
 
         //GET api/<TicketOrderController>/5
         //[HttpGet("{id}")]
