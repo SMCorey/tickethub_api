@@ -1,4 +1,5 @@
 ﻿using Azure.Storage.Queues;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.InteropServices.Marshalling;
 using System.Text;
@@ -11,6 +12,7 @@ namespace tickethub_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("_myAllowSpecificOrigins")]
     public class TicketOrderController : ControllerBase
     {
         private readonly ILogger<TicketOrderController> _logger;
@@ -44,6 +46,7 @@ namespace tickethub_api.Controllers
 
         // POST api/<TicketOrderController>
         [HttpPost]
+        // [EnableCors("_myAllowSpecificOrigins")]
         public async Task<IActionResult> Post([FromBody] TicketOrder ticketOrder)
         {
             try
@@ -51,29 +54,25 @@ namespace tickethub_api.Controllers
                 string messageJson = JsonSerializer.Serialize(ticketOrder);
                 var bytes = Encoding.UTF8.GetBytes(messageJson);
                 await queueClient.SendMessageAsync(Convert.ToBase64String(bytes));
-
                 return Ok("Order has been placed");
-
             }
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
-
-
-
             }
-
-            //// PUT api/<TicketOrderController>/5
-            //[HttpPut("{id}")]
-            //public void Put(int id, [FromBody] string value)
-            //{
-            //}
-
-            // DELETE api/<TicketOrderController>/5
-            //[HttpDelete("{id}")]
-            //public void Delete(int id)
-            //{
-            //}
         }
+
+        //// PUT api/<TicketOrderController>/5
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
+        //{
+        //}
+
+        // DELETE api/<TicketOrderController>/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
+    
 }
