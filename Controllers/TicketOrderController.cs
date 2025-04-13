@@ -1,6 +1,7 @@
 ﻿using Azure.Storage.Queues;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.InteropServices.Marshalling;
+using System.Text;
 using System.Text.Json;
 using tickethub_api.Data;
 
@@ -48,8 +49,8 @@ namespace tickethub_api.Controllers
             try
             {
                 string messageJson = JsonSerializer.Serialize(ticketOrder);
-
-                await queueClient.SendMessageAsync(messageJson);
+                var bytes = Encoding.UTF8.GetBytes(messageJson);
+                await queueClient.SendMessageAsync(Convert.ToBase64String(bytes));
 
                 return Ok("Order has been placed");
 
